@@ -1,0 +1,29 @@
+# Large/restricted data (see data/raw/README.md for download instructions)
+data/raw/prg*.csv
+data/raw/eurostat_lfsa_eisn2.csv
+data/raw/2024-RTM.xlsx
+data/raw/gincdif-cntry.xlsx
+data/raw/stfedu-cntry.xlsx
+data/raw/stfhlth-cntry.xlsx
+data/raw/piaac_cycle2_summary.xls
+data/raw/oecd_epl_database_full.xlsx
+data/raw/ess11_microdata.*
+data/OECD_RTM_2022_Public_Use_Microdata/
+data/OECD_RTM_2024_Public_Use_Microdata/
+data/OECD_RTM_*.zip
+
+# Build and working directories
+paper/
+output/
+validation/
+v2_prep/
+
+# Config and environment
+NOTES.md
+*.code-workspace
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
