@@ -1,0 +1,46 @@
+AIOE LOO Jackknife — Verification Log
+Run: 2026-05-24T22:15:53
+Source script: scripts/03c_loo_aioe.py
+Reference: validation/aioe_leave_one_out.md (2026-04-17)
+
+──────────────────────────────────────────────────────────────────────
+Baseline replication (full 21-country sample)
+──────────────────────────────────────────────────────────────────────
+  [PASS] baseline Pearson r: published=0.7087, computed=0.7087, |Δ|=0.000008
+  [PASS] baseline Spearman ρ: published=0.6987, computed=0.6987, |Δ|=0.000001
+  [PASS] baseline p-value: published=0.0003, computed=0.0003, |Δ|=0.000000
+
+──────────────────────────────────────────────────────────────────────
+Tail-anchor replication
+──────────────────────────────────────────────────────────────────────
+  [PASS] ESP-dropped r (largest +Δ): published=0.7712, computed=0.7712, |Δ|=0.000050
+  [PASS] HUN-dropped r (largest −Δ): published=0.6684, computed=0.6684, |Δ|=0.000032
+
+──────────────────────────────────────────────────────────────────────
+LOO summary-statistic replication
+──────────────────────────────────────────────────────────────────────
+  [PASS] mean LOO r: published=0.7087, computed=0.7087, |Δ|=0.000020
+  [PASS] SD LOO r (ddof=0, matches published): published=0.0247, computed=0.0247, |Δ|=0.000049
+
+──────────────────────────────────────────────────────────────────────
+Cell-by-cell diff against validation/aioe_leave_one_out.md
+──────────────────────────────────────────────────────────────────────
+  [PASS] 21/21 rows match on both r and ρ to 4 decimal places
+
+──────────────────────────────────────────────────────────────────────
+'All 21 positive and p < .001' check
+──────────────────────────────────────────────────────────────────────
+  All 21 r > 0:               True
+  Count with p < .001:        19/21
+  Count with p < .005:        21/21
+  Count with p < .05:         21/21
+  Max p_pearson observed:     0.001276 (dropped: HUN)
+
+======================================================================
+OVERALL: FAIL
+
+Failure summary:
+  - The published '.md says 'p < .001 in all cases' is a slight overstatement: only 19/21 LOO correlations have p < .001 (max p = 0.001276 when dropping HUN). The looser claim 'all 21 positive and p < .005' DOES hold (21/21). This is a real finding — the .md table should be corrected, or v2's manuscript should cite the looser threshold.
+======================================================================
+
+Note: any FAIL above means either pca_aioe_validation.csv has drifted since 2026-04-17 (re-run 03b_validate_aioe.py) or the published reference at validation/aioe_leave_one_out.md needs updating. Both are findings worth investigating before trusting downstream uses.

@@ -1,0 +1,21 @@
+{
+  "verified_agglvl_code": "16",
+  "n_total_zip_entries": 2160,
+  "n_naics4_files_matched": 309,
+  "n_files_with_us_national_row": 309,
+  "n_industries_aggregated": 309,
+  "total_annual_avg_emplvl_millions": 153.03,
+  "ownership_pattern_counts": {
+    "1,3,5": 21,
+    "3,5": 67,
+    "2,3,5": 41,
+    "5": 77,
+    "1,2,3,5": 77,
+    "1,2,5": 1,
+    "2,5": 8,
+    "1,5": 9,
+    "1,2,3": 8
+  },
+  "n_rows_dropped_wrong_agglvl": 0,
+  "filter_method": "area_fips=US000 AND agglvl_code=16; SUM across own_codes per industry"
+}

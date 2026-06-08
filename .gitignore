@@ -1,4 +1,4 @@
-# Large/restricted data (see data/raw/README.md for download instructions)
+﻿# Large/restricted data (see data/raw/README.md for download instructions)
 data/raw/prg*.csv
 data/raw/eurostat_lfsa_eisn2.csv
 data/raw/2024-RTM.xlsx
@@ -16,7 +16,23 @@ data/OECD_RTM_*.zip
 paper/
 output/
 validation/
-v2_prep/
+
+# v2_prep: ignore the whole tree, then re-include code only
+# (docs/ intentionally NOT re-included — kept out of the public repo)
+v2_prep/*
+!v2_prep/scripts/
+!v2_prep/README.md
+v2_prep/output/*
+!v2_prep/output/coef_table_*.csv
+!v2_prep/output/model_meta_*.csv
+v2_prep/data/
+
+# Absolute safety net: no RTM-derived data in any form, anywhere
+*.parquet
+
+# Working paper drafts and notes stay out of the public repo (consistent with paper/)
+*.docx
+MIC_*.md
 
 # Config and environment
 NOTES.md

@@ -1,0 +1,69 @@
+{
+  "url": "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/lfsa_etgar/?format=SDMX-CSV",
+  "fetch_completed_utc": "2026-05-29T01:06:59+00:00",
+  "tls_verification": "BYPASSED \u2014 local Windows cert chain issue (both system store and certifi bundle fail CERTIFICATE_VERIFY_FAILED on ec.europa.eu). Authorized for this single public Eurostat URL. Integrity verified via SHA256.",
+  "bulk_download": {
+    "bytes": 81064605,
+    "sha256": "540df4c5d0d00b0ef4b90da609eb7e2da1593ab0a5c92a284261c0d53044d6e2",
+    "content_type_reported": "application/vnd.sdmx.data+csv;version=1.0.0"
+  },
+  "filter_applied_post_fetch": {
+    "unit": "PC_SAL_TEMP",
+    "sex": "T",
+    "age": "Y15-64",
+    "reason": "NF_PJOB",
+    "TIME_PERIOD": [
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  "filtered_artifact": {
+    "path": "data\\raw\\eurostat_lfsa_etgar.csv",
+    "bytes": 15481,
+    "sha256": "c219e9177ea32aad25912f10ed466fc30c102effbcd85b43ca2cdfd3af89e842",
+    "row_count": 176,
+    "distinct_geos": [
+      "AT",
+      "BA",
+      "BE",
+      "BG",
+      "CH",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EA21",
+      "EE",
+      "EL",
+      "ES",
+      "EU27_2020",
+      "FI",
+      "FR",
+      "HR",
+      "HU",
+      "IE",
+      "IS",
+      "IT",
+      "LT",
+      "LU",
+      "LV",
+      "ME",
+      "MK",
+      "MT",
+      "NL",
+      "NO",
+      "PL",
+      "PT",
+      "RO",
+      "RS",
+      "SE",
+      "SI",
+      "SK",
+      "TR"
+    ]
+  },
+  "dataset_last_update_from_dataflow_field": "17/04/26 11:00:00 (per Eurostat DATAFLOW header on bulk download)"
+}

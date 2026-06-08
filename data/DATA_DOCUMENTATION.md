@@ -101,8 +101,10 @@ Previous update: April 8, 2026 (automated scan + manual PDF organization)
 - **Used by:** `scripts/01_clean_epl.py`
 - **Format:** SDMX-CSV (42,773 rows × 12 columns)
 - **Work status:** EMP_PT, EMP_TEMP, UEMP_PT
+- **Units present (per work status):** PC_EMP (% of total employment), PC_SAL (% of salaried employees), THS_PER (count)
 - **Countries:** 38 (ISO2 codes)
 - **Years:** 2003-2025
+- **Errata (2026-05-29):** the `temp_share` column derived from this file into `processed/epl_gap.csv` by `scripts/01_clean_epl.py` is **PC_EMP**-based (% of total employment) because that script filters EMP_TEMP/T/Y15-64 but **not** `unit`, then takes the first row per country. It is mislabeled relative to a temps-over-employees reading and **inert** (pass-through only; never used in any computation). Do not reuse it. The unconditional weighted-gap construction pulls a fresh **PC_SAL** series instead (`v2_prep/scripts/01c_unconditional_weighted_gap.py`). See decision log entry #18.
 
 #### AIOE_DataAppendix.xlsx
 - **Source:** Felten, Raj & Seamans (2021), https://doi.org/10.1002/smj.3286
@@ -173,8 +175,8 @@ Previous update: April 8, 2026 (automated scan + manual PDF organization)
 - **Use:** Typology scatter plot (signature figure) and cluster analysis
 
 #### eurostat_emp_by_isco.csv
-- **Derivation:** Aggregated from Eurostat lfsi_pt_a
-- **Use:** Employment structure by occupation and country
+- **Derivation:** Aggregated from Eurostat `lfsa_eisn2` (Employment by sex, age, occupation and full-time/part-time activity — ISCO-08 1-digit). Earlier versions of this documentation incorrectly listed `lfsi_pt_a` as the source; corrected 2026-05-26 (errata flagged in [`v2_prep/docs/axis2_weighting_diagnostic_2026-05-26.md`](../v2_prep/docs/axis2_weighting_diagnostic_2026-05-26.md) Unexpected Finding 3).
+- **Use:** Employment structure by occupation and country (input to Eurostat-employment-weighted Felten AIOE in [`scripts/03b_validate_aioe.py`](../scripts/03b_validate_aioe.py)).
 
 #### pca_aioe_validation.csv
 - **Validation check:** PCA on skill-use indices vs. task_profile_ratio

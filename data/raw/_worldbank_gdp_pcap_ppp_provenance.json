@@ -1,0 +1,23 @@
+{
+  "url": "https://api.worldbank.org/v2/country/all/indicator/NY.GDP.PCAP.PP.CD?date=2021:2024&format=json&per_page=20000",
+  "indicator": "NY.GDP.PCAP.PP.CD (GDP per capita, PPP, current international $)",
+  "source": "World Bank WDI",
+  "fetch_completed_utc": "2026-05-29T22:18:22.682784+00:00",
+  "tls_verification": "standard (api.worldbank.org cert OK)",
+  "sha256_rawjson": "03247fdb5eb9809b120ea2ebce64d9e366709450a4c0df6ba71fe358931cc332",
+  "bytes": 258085,
+  "rows_saved": 1044,
+  "years": [
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "oecd_preference_note": "OECD was the stated preference for provider consistency with SOCX, but the OECD SDMX GDP-per-capita series required nontrivial dataflow/key discovery (awkward to pull) and is labeled \"USD per head, current PPPs\" rather than the requested \"current international dollars\". World Bank NY.GDP.PCAP.PP.CD is the exact definitional match and was authorized as fallback.",
+  "saved_file": "data/raw/worldbank_gdp_pcap_ppp_2026-05-29.csv",
+  "saved_schema": [
+    "country_iso3",
+    "year",
+    "gdp_per_capita_ppp"
+  ]
+}
