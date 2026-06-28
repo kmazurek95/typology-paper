@@ -1,0 +1,11 @@
+Script 08 verification log -- 2026-06-25 19:04:59.024994
+wrote coef_table_RD.csv
+wrote model_meta_RD.csv
+wrote coef_table_SI.csv
+wrote model_meta_SI.csv
+wrote headline_inference_M4.csv
+wrote robustness_panel.csv
+typology cluster counts: Continental=8, Liberal=6, Nordic=6, Southern=3
+wrote figures/typology_scatter.png
+coverage: raw_gap=27 axes=23 weighted=18 weighted_INT_axes=15 cwep=17 (expect 27/23/18/15/17)
+saved script08_models.rds

@@ -11,29 +11,30 @@ data/raw/ess11_microdata.*
 data/OECD_RTM_2022_Public_Use_Microdata/
 data/OECD_RTM_2024_Public_Use_Microdata/
 data/OECD_RTM_*.zip
-
 # Build and working directories
 paper/
 output/
 validation/
-
-# v2_prep: ignore the whole tree, then re-include code only
+# v2_prep: ignore the whole tree, then re-include code + specific outputs only
 # (docs/ intentionally NOT re-included — kept out of the public repo)
 v2_prep/*
 !v2_prep/scripts/
 !v2_prep/README.md
+!v2_prep/output/
 v2_prep/output/*
 !v2_prep/output/coef_table_*.csv
 !v2_prep/output/model_meta_*.csv
+!v2_prep/output/headline_inference_M4.csv
+!v2_prep/output/robustness_panel.csv
+!v2_prep/output/verification_log.txt
 v2_prep/data/
-
+# Never commit fitted-model objects (RTM-derived + oversized)
+*.rds
 # Absolute safety net: no RTM-derived data in any form, anywhere
 *.parquet
-
 # Working paper drafts and notes stay out of the public repo (consistent with paper/)
 *.docx
 MIC_*.md
-
 # Config and environment
 NOTES.md
 *.code-workspace
