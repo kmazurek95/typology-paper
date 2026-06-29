@@ -1,7 +1,7 @@
 # External Inputs Staging Log
 
 **Date:** 2026-05-25
-**Operator:** Claude Code session (Sonnet/Opus pipeline, plan-approved)
+**Operator:** Kaleb Mazurek (repository author); data staging documented as part of the pipeline.
 **Purpose:** Stage four external inputs needed by Script 05 (NACE-AIIE lookup) and Script 06 (country-level merge) from `C:/Users/kaleb/Downloads/` into `data/raw/`.
 
 ## Files staged

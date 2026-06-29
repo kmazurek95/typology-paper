@@ -1,7 +1,7 @@
 # External Inputs Staging Log — 2026-05-26
 
 **Date:** 2026-05-26
-**Operator:** Claude Code session (Pass 2 of Option β implementation per [`v2_prep/docs/v2_measurement_decisions_log.md`](../../v2_prep/docs/v2_measurement_decisions_log.md) entry S2).
+**Operator:** Kaleb Mazurek (repository author) — Pass 2 of Option β implementation per `v2_prep/docs/v2_measurement_decisions_log.md` entry S2.
 **Purpose:** Stage Eurostat `lfsa_etgar` (Temporary employees by main reason) for the Axis 2 weighted-gap robustness construction.
 
 ## File staged

@@ -44,3 +44,6 @@ __pycache__/
 *.pyc
 .venv/
 *.egg-info/
+
+# Local scratch / working files (kept locally, never tracked)
+_scratch/

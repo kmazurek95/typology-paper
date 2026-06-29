@@ -2,6 +2,11 @@
 
 A two-dimensional typology of OECD countries based on the type of AI effect their workforces face (displacement vs. complementarity) and the depth of labor market dualization (employment protection gap between permanent and temporary workers).
 
+This repository contains two related bodies of work:
+
+- **v1 — Typology paper (working paper, complete).** The two-dimensional country typology described below, with illustrative preference evidence. The material in `scripts/`, `data/`, and `figures/` corresponds to this paper.
+- **v2 — Multilevel extension (in progress).** An individual-level multilevel analysis testing whether the typology's two axes moderate how AI exposure relates to welfare-state preferences, using OECD Risks That Matter microdata (2022 and 2024). This work lives in `v2_prep/` and is **in active development — results there are preliminary and not yet written up.**
+
 ## Paper
 
 **Working paper:** [Mazurek_2026_Typology_v1.pdf](./Mazurek_2026_Typology_v1.pdf)
@@ -20,6 +25,17 @@ Mazurek, K. (2026). Institutional Configurations and the Social Politics of AI: 
   year   = {2026}
 }
 ```
+
+## Repository structure
+
+```text
+scripts/        v1 pipeline: PIAAC/EPL/AIOE → typology
+data/           public inputs + processed typology outputs
+figures/        v1 figures
+v2_prep/        v2 multilevel extension (in progress; see v2_prep/README.md)
+```
+
+The `v2_prep/` directory contains an in-progress extension and is not part of the v1 paper. See [`v2_prep/README.md`](v2_prep/README.md) for its status and contents.
 
 ## Getting started
 
@@ -59,7 +75,7 @@ Mazurek, K. (2026). Institutional Configurations and the Social Politics of AI: 
 
 ## Data
 
-Public raw data files ship in `data/raw/`: OECD EPL sub-indices, Felten AIOE scores, BLS SOC-to-ISCO crosswalk, Eurostat temporary employment shares, and RTM 2022 Collected Statlinks. PIAAC Public Use Files and RTM individual-level microdata are excluded for size and licensing reasons. `data/raw/README.md` documents where to obtain each excluded file. `scripts/03b_validate_aioe.py` auto-downloads the Eurostat LFS employment-by-ISCO table it needs on first run.
+Public raw data files ship in `data/raw/`: OECD EPL sub-indices, Felten AIOE scores, BLS SOC-to-ISCO crosswalk, Eurostat temporary employment shares, and RTM 2022 Collected Statlinks. PIAAC Public Use Files and RTM individual-level microdata are excluded for size and licensing reasons; the RTM microdata is the basis for the v2 multilevel extension in `v2_prep/`. `data/raw/README.md` documents where to obtain each excluded file. `scripts/03b_validate_aioe.py` auto-downloads the Eurostat LFS employment-by-ISCO table it needs on first run.
 
 ## License
 

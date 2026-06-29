@@ -5,7 +5,7 @@ Source data for the typology paper pipeline. Some files ship with the repository
 ## Files included in the repository
 
 - `oecd_epl_v4.csv` — OECD EPL Version 4 sub-indices (EPRC, EPT). Source: OECD. Used by `scripts/01_clean_epl.py`.
-- `oecd_epl_overview_all-versions_v1-v4.csv.csv` — OECD EPL all versions (fallback for countries without V4). Source: OECD. Used by `scripts/01_clean_epl.py`.
+- `oecd_epl_overview_all-versions_v1-v4.csv` — OECD EPL all versions (fallback for countries without V4). Source: OECD. Used by `scripts/01_clean_epl.py`.
 - `AIOE_DataAppendix.xlsx` — Felten, Raj & Seamans (2021) AI Occupational Exposure scores. Source: [AIOE-Data/AIOE](https://github.com/AIOE-Data/AIOE). Used by `scripts/03_crosswalk_aioe.py`.
 - `isco_soc_crosswalk.xls` — BLS SOC 2010 to ISCO-08 correspondence table. Source: US Bureau of Labor Statistics. Used by `scripts/03_crosswalk_aioe.py`.
 - `estat_lfsi_pt_a_en.csv` — Eurostat temporary employment shares. Source: Eurostat table lfsi_pt_a. Used by `scripts/01_clean_epl.py`.

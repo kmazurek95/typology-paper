@@ -26,7 +26,7 @@ Previous update: April 8, 2026 (automated scan + manual PDF organization)
 - **estat_lfsi_pt_a_en.csv** (CSV) — 3.3 MB, modified 2026-04-02 17:19:39
 - **gincdif-cntry.xlsx** (Excel) — 9695 bytes, modified 2026-04-02 17:16:49
 - **isco_soc_crosswalk.xls** (Excel) — 0.3 MB, modified 2026-04-02 17:48:04
-- **oecd_epl_overview_all-versions_v1-v4.csv.csv** (CSV) — 0.7 MB, modified 2026-04-03 11:04:34
+- **oecd_epl_overview_all-versions_v1-v4.csv** (CSV) — 0.7 MB, modified 2026-04-03 11:04:34
 - **oecd_epl_v4.csv** (CSV) — 0.1 MB, modified 2026-04-02 16:55:59
 - **piaac_cycle2_summary.xls** (Excel) — 38912 bytes, modified 2026-04-02 17:10:22
 - **prgautp2.csv** (CSV) — 42.3 MB, modified 2026-04-02 18:14:35
@@ -372,7 +372,7 @@ Look in Core Questionnaire PDFs for exact wording. Typically:
 
 ### data/raw/ (~1.1 GB)
 - oecd_epl_v4.csv (150 KB)
-- oecd_epl_overview_all-versions_v1-v4.csv.csv (760 KB) [duplicate/archive version]
+- oecd_epl_overview_all-versions_v1-v4.csv (760 KB) [duplicate/archive version]
 - piaac_cycle2_summary.xls (38 KB)
 - prg[COUNTRY]p2.csv (32 country files, ~30-113 MB each; total ~1.4 GB)
 - AIOE_DataAppendix.xlsx (167 KB)

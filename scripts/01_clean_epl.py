@@ -14,7 +14,7 @@ employment shares for robustness.
 Inputs
 ------
 - data/raw/oecd_epl_v4.csv                          (V4: EPRC + EPT)
-- data/raw/oecd_epl_overview_all-versions_v1-v4.csv.csv  (V1-V4: EPRC only)
+- data/raw/oecd_epl_overview_all-versions_v1-v4.csv  (V1-V4: EPRC only)
 - data/raw/estat_lfsi_pt_a_en.csv                    (Eurostat temp share)
 
 Output
@@ -44,7 +44,7 @@ ept_v4 = v4[v4["MEASURE"] == "EPL_T"].copy()
 
 # ── 2. Load overview file (EPRC across all versions, for fallback) ───────────
 overview = pd.read_csv(
-    RAW_DIR / "oecd_epl_overview_all-versions_v1-v4.csv.csv"
+    RAW_DIR / "oecd_epl_overview_all-versions_v1-v4.csv"
 )
 overview = overview[["REF_AREA", "Reference area", "MEASURE", "VERSION",
                       "TIME_PERIOD", "OBS_VALUE"]].copy()
