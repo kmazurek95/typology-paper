@@ -1,5 +1,7 @@
 ﻿# Large/restricted data (see data/raw/README.md for download instructions)
 data/raw/prg*.csv
+data/raw/cwep/
+data/raw/socx/
 data/raw/eurostat_lfsa_eisn2.csv
 data/raw/2024-RTM.xlsx
 data/raw/gincdif-cntry.xlsx
@@ -27,6 +29,22 @@ v2_prep/output/*
 !v2_prep/output/headline_inference_M4.csv
 !v2_prep/output/robustness_panel.csv
 !v2_prep/output/verification_log.txt
+# 2026-07-03 pre-drafting batch exports (09_batch_exports.R) — provenance for §5
+!v2_prep/output/dropitem_did.csv
+!v2_prep/output/batch_2024slope.csv
+!v2_prep/output/variant_bases.csv
+!v2_prep/output/frame_rosters.csv
+!v2_prep/output/aiie_descriptives.csv
+!v2_prep/output/mdes_table.csv
+!v2_prep/output/h6_stdworker_rung.csv
+!v2_prep/output/fieldwork_share.csv
+# 2026-07-03 micro-batch: rung coefs (GAPS #1) + figure plotdata
+!v2_prep/output/robustness_coefs.csv
+!v2_prep/output/f2_plotdata.csv
+!v2_prep/output/f3_slope_posteriors.csv
+# 2026-07-04 mini-batch: Table 2 descriptives + M7 random-slope diagnostic
+!v2_prep/output/table2_descriptives.csv
+!v2_prep/output/m7_rs_diagnostic.csv
 v2_prep/data/
 # Never commit fitted-model objects (RTM-derived + oversized)
 *.rds

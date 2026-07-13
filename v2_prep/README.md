@@ -1,10 +1,10 @@
 # v2 — Multilevel extension (in progress)
 
-This directory contains an in-progress extension of the v1 typology paper to individual-level analysis. **This work is under active development. Results here are preliminary and have not yet been written up; specifications and findings may change.**
+This directory contains an in-progress extension of the v1 typology paper to individual-level analysis. This work is under active development. Results here are preliminary and have not yet been written up; specifications and findings may change.
 
 ## What this does
 
-The v1 paper maps OECD countries on two axes — AI task-profile composition and labor market dualization. This extension asks an individual-level question: **do those structural axes moderate how a person's AI exposure relates to their welfare-state preferences?** It fits multilevel models on OECD Risks That Matter (RTM) microdata (2022 and 2024 waves), with respondents nested in countries positioned by the v1 typology.
+The v1 paper maps OECD countries on two axes: AI task-profile composition and labor market dualization. This extension asks an individual-level question: do those structural axes moderate how a person's AI exposure relates to their welfare-state preferences? It fits multilevel models on OECD Risks That Matter (RTM) microdata (2022 and 2024 waves), with respondents nested in countries positioned by the v1 typology.
 
 ## Pipeline
 

@@ -4,8 +4,8 @@ A two-dimensional typology of OECD countries based on the type of AI effect thei
 
 This repository contains two related bodies of work:
 
-- **v1 — Typology paper (working paper, complete).** The two-dimensional country typology described below, with illustrative preference evidence. The material in `scripts/`, `data/`, and `figures/` corresponds to this paper.
-- **v2 — Multilevel extension (in progress).** An individual-level multilevel analysis testing whether the typology's two axes moderate how AI exposure relates to welfare-state preferences, using OECD Risks That Matter microdata (2022 and 2024). This work lives in `v2_prep/` and is **in active development — results there are preliminary and not yet written up.**
+- **v1: Typology paper (working paper, complete).** The two-dimensional country typology described below, with illustrative preference evidence. The material in `scripts/`, `data/`, and `figures/` corresponds to this paper.
+- **v2: Multilevel extension (in progress).** An individual-level multilevel analysis testing whether the typology's two axes moderate how AI exposure relates to welfare-state preferences, using OECD Risks That Matter microdata (2022 and 2024). This work lives in `v2_prep/` and is in active development; the results there are preliminary and not yet written up.
 
 ## Paper
 
@@ -85,4 +85,4 @@ Paper, data, and figures: [CC-BY-4.0](./LICENSE-DATA-AND-PAPER)
 
 ## Contact
 
-Kaleb Mazurek — kalebmazurek@gmail.com — Chicago, IL
+Kaleb Mazurek — [institutional email] — Chicago, IL

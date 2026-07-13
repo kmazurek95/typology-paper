@@ -16,3 +16,5 @@ Source data for the typology paper pipeline. Some files ship with the repository
 - **PIAAC Public Use Files** (`prg*p2.csv`, `prgnldp1.csv`) — ~1.5 GB total, 31 country-level CSVs. Freely downloadable from https://www.oecd.org/en/data/datasets/piaac.html. Used by `scripts/02_clean_piaac.py`.
 - **Eurostat LFS employment by ISCO** (`eurostat_lfsa_eisn2.csv`) — ~18 MB. Downloaded automatically by `scripts/03b_validate_aioe.py` on first run. No manual action needed.
 - **RTM 2022 and 2024 microdata** (`.dta` files) — Restricted access. Request from OECD Directorate for Employment, Labour and Social Affairs (Pauline Fron, Pauline.FRON@oecd.org). Used by v2 regression scripts, not required for v1.
+- **OECD Social Expenditure Database (SOCX)** — public. April 2025 release; download from https://www.oecd.org/social/expenditure.htm. Used by the v2 country-level merge (`v2_prep/scripts/06_merge_country_level.py`), not required for v1.
+- **CWEP welfare-generosity index** — Comparative Welfare Entitlements Project (Scruggs et al.); download from https://www.cwep.us/home/data. Used by the v2 welfare-robustness rung, not required for v1.

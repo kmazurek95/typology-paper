@@ -8,16 +8,16 @@ Previous update: April 8, 2026 (automated scan + manual PDF organization)
 - **Key update:** RTM 2022 and 2024 microdata now present (2022: 27,469 obs × 423 vars; 2024: 27,229 obs × 281 vars)
 - **Processed files:** EPL gap, task profile, typology positions, AIOE crosswalk all computed
 
-## Manual Notes (Preserved from Previous Documentation)
+## Manual notes (preserved from previous documentation)
 
-### Known Data Issues
+### Known data issues
 1. **EPL EPRC missing (RESOLVED):** The original `oecd_epl_v4.csv` contains EPL_T and EPL_OV but not EPRC. As of April 9, 2026, `oecd_epl_database_full.xlsx` supersedes `oecd_epl_v4.csv` as the authoritative EPL source because the CSV was missing the EPRC measure. The old CSV is retained for provenance. Script 01 should be rerun against the new file to compute the correct dualization gap (EPRC − EPT).
 2. **PIAAC skill-use indices:** Data Explorer shows missing values for skill-use-at-work indices (Reports 4-6). Proficiency scores used as proxy.
 3. **Country code inconsistencies:** EPL=ISO3, ESS=ISO2, Eurostat=ISO2. Standardized to ISO3 in processing.
 
 ---
 
-## Files in data/raw/ (Original Downloads)
+## Files in data/raw/ (original downloads)
 
 ### Overview of raw files
 - **2022_RTM.xlsx** (Excel) — 0.5 MB, modified 2026-04-02 17:30:09
@@ -134,7 +134,7 @@ Previous update: April 8, 2026 (automated scan + manual PDF organization)
 
 ---
 
-## Files in data/processed/ (Cleaned & Computed Outputs)
+## Files in data/processed/ (cleaned and computed outputs)
 - **aioe_isco08.csv** (CSV) — 28.3 KB, modified 2026-04-03 11:21:45
 - **aioe_isco08_2digit.csv** (CSV) — 1009 bytes, modified 2026-04-03 11:21:45
 - **epl_gap.csv** (CSV) — 2.3 KB, modified 2026-04-03 11:19:28
@@ -183,7 +183,7 @@ Previous update: April 8, 2026 (automated scan + manual PDF organization)
 
 ---
 
-## RTM 2022 Microdata
+## RTM 2022 microdata
 
 **Location:** `data/OECD_RTM_2022_Public_Use_Microdata/FinalData_dta/FinalData_dta/`
 - **File:** OECD_RTM_2022_Public_Use_Microdata.dta (90 MB)
@@ -191,14 +191,14 @@ Previous update: April 8, 2026 (automated scan + manual PDF organization)
 - **Years:** 2022
 - **Survey design:** Stratified by country; respondents are nationally representative samples (18+)
 
-### RTM 2022 Variable Structure
+### RTM 2022 variable structure
 - **Core ID/weight variables:** id, ctrcode (country numeric code), year, ctryear, weight (survey weight), year
 - **Treatment flags:** a_treatment, break, cc_treatment (experimental design markers)
 - **Time stamps:** starttime, endtime
 - **Question variables:** q1-q48b (main questionnaire items, ~200 variables)
 - **Sociodemographic variables:** s1-s40 (background and context)
 
-### RTM 2022 Variables of Interest
+### RTM 2022 variables of interest
 - **Redistribution preference:** See questionnaire for items on taxing the rich, income inequality
 - **Social investment:** Items on education/training spending, health service quality
 - **Automation risk perception:** (Note: Limited in 2022 wave; full module added in 2024)
@@ -210,14 +210,14 @@ Previous update: April 8, 2026 (automated scan + manual PDF organization)
 - **Survey weight:** weight (main expansion weight for national representation)
 
 ### Documentation and questionnaire documents (PDF)
-- **OECD-RTM-Technical-Documentation-Survey-Design.pdf** (1.6 MB) — Comprehensive technical documentation covering survey methodology, questionnaire design, and variable definitions across all RTM waves (2018, 2020, 2022, 2024). See OECD Working Papers No. 324 (https://dx.doi.org/10.1787/5eebe551-en). Recommended reference for understanding questionnaire construction and sample design.
+- **OECD-RTM-Technical-Documentation-Survey-Design.pdf** (1.6 MB) — Technical documentation covering survey methodology, questionnaire design, and variable definitions across all RTM waves (2018, 2020, 2022, 2024). See OECD Working Papers No. 324 (https://dx.doi.org/10.1787/5eebe551-en). Recommended reference for understanding questionnaire construction and sample design.
 - **OECD-Risks-That-Matter-2022-Core-Questionnaire.pdf** (349 KB) — Main survey instrument with full question text for 2022 wave
 - **OECD-Risks-That-Matter-2022-Background-Questionnaire.pdf** (280 KB) — Sociodemographic item wording for 2022 wave
 - **Terms_Conditions_OECD_RTM_microdata.pdf** (99 KB) — Data use agreement and attribution requirements
 
 ---
 
-## RTM 2024 Microdata
+## RTM 2024 microdata
 
 **Location:** `data/OECD_RTM_2024_Public_Use_Microdata/OECD_RTM_2024_Public_Use_Microdata/OECD_RTM_2024_Public_Use_Microdata/`
 - **File:** OECD_RTM_2024_Public_Use_Microdata.dta (8.5 MB)
@@ -225,14 +225,14 @@ Previous update: April 8, 2026 (automated scan + manual PDF organization)
 - **Years:** 2024
 - **Survey design:** Updated design with expanded AI/automation module
 
-### RTM 2024 Variable Structure (Restructured vs. 2022)
+### RTM 2024 variable structure (restructured vs. 2022)
 - **Core ID/weight variables:** id, country (country name), ctrcode, year, ctryear, weight
 - **Updated variable prefixes:** More concise naming (s0-s35, q1-q30 mainly)
 - **Question variables:** q1-q30 (consolidated question set, ~100 variables)
 - **Sociodemographic variables:** s0-s35 (revised background structure)
 - **Fewer derived variables:** Compared to 2022
 
-### RTM 2024 Variables of Interest (Enhanced)
+### RTM 2024 variables of interest (enhanced)
 - **Redistribution preference:** q2a-q2l, q3a-q3m (expanded items on wealth, taxation, inequality)
 - **Social investment:** q9a-q9g (policy priorities), q23a-q23f (government responsibility)
 - **Automation/AI risk perception (NEW MODULE):** q4a-q4e, q5-q7, q21-q22 (AI impact, retraining needs, AI skepticism)
@@ -258,7 +258,7 @@ Previous update: April 8, 2026 (automated scan + manual PDF organization)
 
 ---
 
-## Archive Files (.zip)
+## Archive files (.zip)
 The following .zip files are present and have been extracted:
 - **OECD_RTM_2022_Public_Use_Microdata.zip** (7.6 MB) → Extracted to folder of same name
 - **OECD_RTM_2024_Public_Use_Microdata.zip** (2.9 MB) → Extracted to folder of same name
@@ -269,23 +269,23 @@ All microdata .dta files are now directly accessible without further extraction 
 
 ---
 
-## Data Completeness & Readiness
+## Data completeness and readiness
 
-### Ready for analysis (Axis 1 & 2, Typology Figure)
-✓ EPL gap (dualization) computed — Script 01 complete
-✓ Task profile ratio (AI displacement/complementarity) computed — Script 02 complete
-✓ Typology positions (2D scatter) computed — Script 05 complete
-✓ AIOE crosswalk to ISCO-08 computed — Script 03 complete
-✓ Typology scatter plot generated — Script 07 (descriptive) ready
+### Ready for analysis (Axis 1 and 2, typology figure)
+- EPL gap (dualization) computed — Script 01 complete
+- Task profile ratio (AI displacement/complementarity) computed — Script 02 complete
+- Typology positions (2D scatter) computed — Script 05 complete
+- AIOE crosswalk to ISCO-08 computed — Script 03 complete
+- Typology scatter plot generated — Script 07 (descriptive) ready
 
 ### Ready for regression analysis
-✓ RTM 2022 microdata present (27,469 obs × 423 vars)
-✓ RTM 2024 microdata present (27,229 obs × 281 vars)
-✓ Both waves include redistribution preference items
-✓ 2024 includes expanded AI/automation module (q4-q7, q21-q22)
-✓ Employment status, income decile, education available in both waves
-⚠ ISCO occupation codes not explicitly present in RTM; occupation coded as job title (s9/s10). Crosswalk to ISCO may require additional mapping.
-✓ Survey weights present (weight variable) for population inference
+- RTM 2022 microdata present (27,469 obs × 423 vars)
+- RTM 2024 microdata present (27,229 obs × 281 vars)
+- Both waves include redistribution preference items
+- 2024 includes expanded AI/automation module (q4-q7, q21-q22)
+- Employment status, income decile, education available in both waves
+- Caveat: ISCO occupation codes not explicitly present in RTM; occupation coded as job title (s9/s10). Crosswalk to ISCO may require additional mapping.
+- Survey weights present (weight variable) for population inference
 
 ### Still needed
 - Manual ISCO coding or external crosswalk for RTM occupation variables (if ISCO-level AI exposure needed)
@@ -293,24 +293,24 @@ All microdata .dta files are now directly accessible without further extraction 
 
 ---
 
-## Data Processing Pipeline Status
+## Data processing pipeline status
 
 | Script | Task | Input | Output | Status |
 |--------|------|-------|--------|--------|
-| 01 | EPL gap | oecd_epl_v4.csv | epl_gap.csv | ✓ Complete |
-| 02 | Task profile | piaac_*.csv | task_profile.csv | ✓ Complete |
-| 03 | AIOE crosswalk | AIOE_DataAppendix.xlsx + isco_soc_crosswalk.xls | aioe_isco08.csv | ✓ Complete |
-| 04 | RTM cleaning | rtm_microdata.dta | (cleaned RTM) | ✓ Ready (microdata present) |
-| 05 | Typology merge | epl_gap.csv + task_profile.csv | typology_positions.csv | ✓ Complete |
-| 06 | Merge analysis | cleaned RTM + typology + AIOE | analysis_ready.csv | ⏳ Pending RTM processing |
-| 07 | Descriptive figures | typology_positions.csv, RTM aggregate data | scatter plot, preference figures | ✓ Executable |
-| 08 | Multilevel regression | analysis_ready.csv | model_results.txt, coefficient plots | ⏳ Pending Script 06 |
+| 01 | EPL gap | oecd_epl_v4.csv | epl_gap.csv | Complete |
+| 02 | Task profile | piaac_*.csv | task_profile.csv | Complete |
+| 03 | AIOE crosswalk | AIOE_DataAppendix.xlsx + isco_soc_crosswalk.xls | aioe_isco08.csv | Complete |
+| 04 | RTM cleaning | rtm_microdata.dta | (cleaned RTM) | Ready (microdata present) |
+| 05 | Typology merge | epl_gap.csv + task_profile.csv | typology_positions.csv | Complete |
+| 06 | Merge analysis | cleaned RTM + typology + AIOE | analysis_ready.csv | Pending RTM processing |
+| 07 | Descriptive figures | typology_positions.csv, RTM aggregate data | scatter plot, preference figures | Executable |
+| 08 | Multilevel regression | analysis_ready.csv | model_results.txt, coefficient plots | Pending Script 06 |
 
 ---
 
-## Key Variable Codebooks
+## Key variable codebooks
 
-### RTM Redistribution Items (Both Waves)
+### RTM redistribution items (both waves)
 Look in Core Questionnaire PDFs for exact wording. Typically:
 - Items on wealth taxation ("Government should tax the wealthy more")
 - Items on income inequality ("Government should reduce income differences")
@@ -318,57 +318,57 @@ Look in Core Questionnaire PDFs for exact wording. Typically:
 - 2022 uses q2/q3 blocks for preferences
 - 2024 uses q2a-q2l and q3a-q3m for expanded preference items
 
-### RTM Social Investment Items (Both Waves)
+### RTM social investment items (both waves)
 - Education/retraining investment priorities (q9a-q9g in 2024)
 - Willingness to pay for social programs
 - Government responsibility for worker support
 
-### RTM Automation/AI Items (2024 Primarily)
+### RTM automation/AI items (2024 primarily)
 - q4: AI impact perceptions (positive vs. negative)
 - q5-q7: Retraining necessity, job security concerns
 - q21-q22: Trust in government use of AI; AI skepticism
 - Note: 2022 wave did not include automation module; 2024 is first comprehensive coverage
 
-### RTM Employment Status (Both Waves)
+### RTM employment status (both waves)
 - s4: Employment status (employed, unemployed, inactive, student, retired, other)
 - s5: Employment type (permanent, temporary, self-employed, part-time, gig, etc.)
 - s6: Additional employment detail (contract duration, working hours)
 - Insider/outsider coding possible by combining s4-s6
 
-### Income & Education (Both Waves)
+### Income and education (both waves)
 - **Income:** s8 in 2022 (multiple formats: decile, equivalized, standard); s9_dec in 2024 (income decile)
 - **Education:** s6 in 2022 with categorical vars (s6_cat2/cat3); s7_cat3 in 2024
 - Both use education attainment (ISCED or national equivalents)
 
 ---
 
-## Technical Notes
+## Technical notes
 
-### Country Coverage
+### Country coverage
 - **RTM 2022:** 27+ OECD countries (check ctrcode in microdata)
 - **RTM 2024:** 27+ OECD countries (same sampling frame)
 - **EPL:** 43 countries including non-OECD (filter for OECD subset for merge)
 - **PIAAC:** 32 countries (OECD + partners)
 - **ESS:** ~30 European countries (ISO2 codes; requires conversion to ISO3)
 
-### Recommended Merge Keys
+### Recommended merge keys
 - Country level: ISO3 code (standardize all sources to this)
 - Individual level in RTM: ctrcode (country numeric) + id (respondent ID)
 - Occupation: s9 or s10 (RTM) → manual ISCO mapping or external crosswalk
 
-### Survey Weights
+### Survey weights
 - **RTM:** Use `weight` variable for national-representative estimates
 - **PIAAC:** Country-level aggregate exports; individual weights in PUFs (not yet downloaded)
 - **ESS:** Not available in country-level exports; available in full microdata after registration
 
-### Missing Data Handling
+### Missing data handling
 - RTM: Check for negative codes indicating refusal, don't know, not applicable
 - PIAAC: "—" indicates missing or not collected
 - EPL: No missing values in version 4; imputation done by OECD
 
 ---
 
-## File Manifest (Complete List)
+## File manifest (complete list)
 
 ### data/raw/ (~1.1 GB)
 - oecd_epl_v4.csv (150 KB)

@@ -2,7 +2,7 @@
 
 **Date:** 2026-05-25
 **Operator:** Kaleb Mazurek (repository author); data staging documented as part of the pipeline.
-**Purpose:** Stage four external inputs needed by Script 05 (NACE-AIIE lookup) and Script 06 (country-level merge) from `C:/Users/kaleb/Downloads/` into `data/raw/`.
+**Purpose:** Stage four external inputs needed by Script 05 (NACE-AIIE lookup) and Script 06 (country-level merge) from `~/Downloads/` into `data/raw/`.
 
 ## Files staged
 

@@ -1,0 +1,3 @@
+"scope","n_total","fielding_start","fielding_end","n_after_nov30","share_after_nov30","n_on_or_after_nov30","share_on_or_after_nov30","chatgpt_release","note"
+"full_2022_wave",27469,"2022-10-13 12:53:52","2022-12-08 01:18:36",20,0.000728093487203757,25,0.000910116859004696,"2022-11-30","starttime = datetime of survey start (2022 wave only; 2024 has no timestamp)"
+"frame_23ctry",23406,"2022-10-13 12:53:52","2022-12-08 01:18:36",9,0.000384516790566521,14,0.000598137229770144,"2022-11-30","starttime = datetime of survey start (2022 wave only; 2024 has no timestamp)"
