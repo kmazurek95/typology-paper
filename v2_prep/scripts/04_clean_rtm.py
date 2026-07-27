@@ -505,6 +505,27 @@ def main() -> int:
     mapping = pd.read_csv(MAPPING_CSV)
     assert len(mapping) > 0, "Empty mapping CSV"
 
+    # Contract check: the mapping is assembled by the ten build_*_mapping.py
+    # scripts, and only build_dv_mapping.py (Session 01) writes a FRESH file --
+    # the other nine read-then-append. Running them in any order that puts
+    # build_dv_mapping.py after another builder silently discards every row
+    # written before it (alphabetical order yields 68 rows instead of 99, with
+    # every script still exiting 0). The admin block is the one that disappears
+    # most damagingly: it carries the merge keys, the country join key, the wave
+    # indicator and the survey weight. Fail loudly here rather than pool without
+    # them. See v2_prep/README.md for the required builder order.
+    missing_admin = sorted(ADMIN_NAMES - set(mapping["analytic_name"]))
+    if missing_admin:
+        print(
+            f"FATAL: mapping CSV is missing required admin rows: {missing_admin}\n"
+            f"  {MAPPING_CSV} has {len(mapping)} rows; expected the full builder output.\n"
+            f"  This usually means the build_*_mapping.py scripts ran in the wrong\n"
+            f"  order. Delete the CSV and re-run them starting with"
+            f" build_dv_mapping.py.",
+            file=sys.stderr,
+        )
+        return 2
+
     # Survey + print recode rules first per spec
     survey = survey_recode_rules(mapping)
     print_rule_survey(survey)

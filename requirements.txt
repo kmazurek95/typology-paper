@@ -6,5 +6,11 @@ scipy>=1.11
 openpyxl>=3.1
 xlrd>=2.0
 
+# v2 chain only: 00_ingest_rtm.py reads the RTM .dta via pyreadstat and writes
+# Parquet via pyarrow. Neither is used by the v1 pipeline, but without them the
+# v2 chain fails at its first script.
+pyreadstat>=1.2
+pyarrow>=14.0
+
 # optional, used for non-overlapping labels in figure 1:
 adjustText>=0.8

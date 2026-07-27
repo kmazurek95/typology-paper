@@ -189,21 +189,17 @@ robust_specs <- function() list(
   cwep_welfare  = c(L1, L2_main, "cwep_tot_gen", "(1 + aiie_cwc|ctrcode)")
 )
 
-# ---- small-cluster inference helpers (#23) ----------------------------------
-inference_pack <- function(m, terms) {
-  out <- list()
-  out$satterthwaite <- summary(m)$coefficients                       # lmerTest default (per-coef PRIMARY)
-  # Kenward-Roger per-coefficient df/SE (small-sample; #23). lmerTest dispatches to
-  # pbkrtest internally and returns a per-coefficient table. (The earlier
-  # get_Lb_ddf(m, fixef(m)) was WRONG: it passed the whole coefficient vector as a
-  # single contrast L, giving df for the SUM of all coefficients, not per-coefficient.)
-  out$kr <- tryCatch(summary(m, ddf = "Kenward-Roger")$coefficients, error = function(e) NA)
-  if (requireNamespace("clubSandwich", quietly = TRUE))
-    out$cr2 <- tryCatch(clubSandwich::coef_test(m, vcov = "CR2"), error = function(e) NA)
-  out$boot <- tryCatch(confint(m, parm = terms, method = "boot", nsim = 1000,
-                               boot.type = "perc"), error = function(e) NA)
-  out
-}
+# ---- small-cluster inference (#23) ------------------------------------------
+# The four-way inference battery (Satterthwaite / Kenward-Roger / CR2 / parametric
+# bootstrap) for the headline gamma11+gamma12 terms lives inline in write_outputs()
+# section 2, which is the only place it runs. A former `inference_pack()` helper
+# duplicated it here at nsim = 1000 and was never called by anything; it was removed
+# rather than left to misreport the live bootstrap depth (200). The bug its comment
+# recorded -- get_Lb_ddf(m, fixef(m)) returning df for the SUM of all coefficients
+# instead of per-coefficient -- is NOT present in the live path, which uses the
+# per-coefficient form summary(m, ddf = "Kenward-Roger").
+BOOT_SEED <- 20260725L   # see write_outputs() section 2
+
 # brms co-primary (variance components) -- guarded by availability + Rtools.
 fit_brms_coprimary <- function(d, dv, rhs_fixed) {
   if (!requireNamespace("brms", quietly = TRUE)) { message("brms not installed -- skipping co-primary."); return(NULL) }
@@ -635,6 +631,18 @@ write_outputs <- function(df, models, rob, brms_fits, cs) {
   wr <- function(obj, file) tryCatch({ write.csv(obj, file.path(OUT, file), row.names = FALSE); LOG("wrote %s", file) },
                                      error = function(e) LOG("ERROR writing %s: %s", file, conditionMessage(e)))
 
+  ## 0. PERSIST THE FITS FIRST. Everything passed in is already computed by the
+  ## time write_outputs() is called, and section 2 below (Kenward-Roger + CR2 +
+  ## parametric bootstrap on M4, both DVs) is by far the most expensive stage in
+  ## the repo -- measured at 6h20m against ~90 min for all 16 model fits combined.
+  ## Saving here rather than at the end means a crash, an OOM or an interrupt in
+  ## that block costs only the inference, not the entire fitted ladder + brms.
+  ## script08_models.rds is also what Scripts 09/10/11 consume, so persisting it
+  ## early makes the figures reachable without re-fitting.
+  tryCatch(saveRDS(list(models = models, robustness = rob, brms = brms_fits, cleavage = cs),
+                   file.path(OUT, "script08_models.rds")), error = function(e) LOG("ERROR .rds: %s", conditionMessage(e)))
+  LOG("saved script08_models.rds")
+
   ## 1. coefficient tables + model meta (M0-M7) per DV
   for (DV in c("RD", "SI")) tryCatch({
     keys <- grep(sprintf("_%s($|_)", DV), names(models), value = TRUE)
@@ -657,6 +665,11 @@ write_outputs <- function(df, models, rob, brms_fits, cs) {
       m <- models[[paste0("M4_", DV)]]$m; sat <- summary(m)$coefficients
       kr <- tryCatch(summary(m, ddf = "Kenward-Roger")$coefficients, error = function(e) NULL)
       cr <- tryCatch(as.data.frame(clubSandwich::coef_test(m, vcov = "CR2")), error = function(e) NULL)
+      # Seed the parametric bootstrap. Without this, boot_lo/boot_hi are the ONLY
+      # non-reproducible values the pipeline emits -- every other output, brms
+      # posteriors included (brm(seed = 1)), is bit-identical across runs. Seeded
+      # per DV so RD and SI do not depend on each other's draw order.
+      set.seed(BOOT_SEED + match(DV, c("RD", "SI")))
       bt <- tryCatch(confint(m, parm = c("aiie_cwc:z_task_profile", "aiie_cwc:z_dualization"),
                              method = "boot", nsim = 200, boot.type = "perc"), error = function(e) NULL)
       crn <- if (!is.null(cr)) (if ("Coef" %in% names(cr)) cr$Coef else rownames(cr)) else NULL
@@ -697,16 +710,13 @@ write_outputs <- function(df, models, rob, brms_fits, cs) {
     }
   }, error = function(e) LOG("ERROR scatter: %s", conditionMessage(e)))
 
-  ## 5. coverage assertions + singular flags + save .rds
+  ## 5. coverage assertions + singular flags   (.rds is saved in section 0 above)
   ncc <- function(col) length(unique(df$ctrcode[!is.na(df[[col]])]))
   axc <- unique(df$ctrcode[!is.na(df$z_task_profile)]); wgc <- unique(df$ctrcode[!is.na(df$dualization_gap_weighted_uncond)])
   LOG("coverage: raw_gap=%d axes=%d weighted=%d weighted_INT_axes=%d cwep=%d (expect 27/23/18/15/17)",
       ncc("dualization_gap_raw"), ncc("z_task_profile"), ncc("dualization_gap_weighted_uncond"),
       length(intersect(axc, wgc)), ncc("cwep_tot_gen"))
   for (k in names(models)) if (lme4::isSingular(models[[k]]$m, tol = 1e-4)) LOG("SINGULAR (main ladder): %s", k)
-  tryCatch(saveRDS(list(models = models, robustness = rob, brms = brms_fits, cleavage = cs),
-                   file.path(OUT, "script08_models.rds")), error = function(e) LOG("ERROR .rds: %s", conditionMessage(e)))
-  LOG("saved script08_models.rds")
   writeLines(V, file.path(OUT, "verification_log.txt"))
   cat("\n--- verification log ---\n"); cat(paste(V, collapse = "\n"), "\n")
   cat("Artifacts ->", OUT, "and figures/\n")
