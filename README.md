@@ -48,17 +48,46 @@ The `v2_prep/` directory contains an in-progress extension and is not part of th
 
 2. Download the PIAAC Cycle 2 Public Use Files (~1.5 GB, 31 country-level CSVs). These are freely available but too large for GitHub. See [`data/raw/README.md`](data/raw/README.md) for the download URL and file list.
 
-3. Run the pipeline from the repo root:
+3. Run the pipeline from the repo root, **in this order**:
    ```
    python scripts/01_clean_epl.py
    python scripts/02_clean_piaac.py
    python scripts/03_crosswalk_aioe.py
+   python scripts/05_merge_typology.py     # must precede 03b
    python scripts/03b_validate_aioe.py
-   python scripts/05_merge_typology.py
+   python scripts/03c_loo_aioe.py
    python scripts/07_descriptive.py
    ```
 
+   **Order note.** `03b_validate_aioe.py` reads `data/processed/typology_positions.csv`,
+   which `05_merge_typology.py` writes — so 05 must run first. Earlier versions of this
+   README listed 03b before 05; because `data/processed/` is committed, that ordering did
+   not error, it silently validated against the *committed* typology positions instead of
+   the ones just rebuilt. If you want a genuinely clean rebuild, clear `data/processed/`
+   first so no stale intermediate can be picked up.
+
 4. Outputs appear at `figures/figure1_typology_scatter.png` (Figure 1), `figures/figure2_preferences_by_cluster.png` (Figure 2), and `data/processed/typology_positions.csv` (country-level data).
+
+> ### ⚠️ If you also use the v2 chain, re-run the weighted-gap steps afterwards
+>
+> `v2_prep/scripts/01b_compute_weighted_gap.py` and `01c_unconditional_weighted_gap.py`
+> mutate `epl_gap.csv` and `typology_positions.csv` **in place** after Script 05 has
+> written them: they add the weighted-dualization columns and rename `dualization_gap`
+> → `dualization_gap_raw`. The v2 chain
+> (`v2_prep/scripts/06_merge_country_level.py`) reads those added columns.
+>
+> Re-running the v1 pipeline above regenerates both files from scratch and **strips
+> everything 01b/01c added**, which breaks v2. Scripts 01 and 05 now print a loud warning
+> naming the dropped columns when this happens. To restore them:
+>
+> ```
+> python v2_prep/scripts/01b_compute_weighted_gap.py
+> python v2_prep/scripts/01c_unconditional_weighted_gap.py
+> ```
+>
+> Run 01b **exactly once** per v1 rebuild — it asserts the pre-rename `dualization_gap`
+> column, so it succeeds after a fresh Script 01 but fails if run twice in a row. 01c is
+> idempotent and safe to re-run.
 
 ## Scripts
 

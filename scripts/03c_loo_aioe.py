@@ -257,7 +257,16 @@ def write_verification_log(
 
     lines.append("")
     lines.append("─" * 70)
-    lines.append("'All 21 positive and p < .001' check")
+    # Tests the CORRECTED claim, not the original one. The original .md said
+    # "p < .001 in all cases"; the formalized re-run showed that is a slight
+    # overstatement (19/21 at p < .001; HUN-dropped p = 0.001276, CHE-dropped
+    # p = 0.001259), and validation/aioe_leave_one_out.md was corrected on
+    # 2026-04-17 to "p < .005 in all cases; 19 of 21 with p < .001".
+    # Asserting the superseded claim made this script exit 1 on every run
+    # forever, which hides a genuine regression inside a known failure. The
+    # thresholds below encode what the .md now says, so a FAIL here again means
+    # something actually moved.
+    lines.append("'All 21 positive, p < .005 all, >= 19/21 at p < .001' check")
     lines.append("─" * 70)
     all_positive = bool((loo["r_pearson"] > 0).all())
     n_below_001 = int((loo["r_pearson_p"] < 0.001).sum())
@@ -265,21 +274,21 @@ def write_verification_log(
     n_below_05 = int((loo["r_pearson_p"] < 0.05).sum())
     max_p = float(loo["r_pearson_p"].max())
     max_p_country = loo.loc[loo["r_pearson_p"].idxmax(), "dropped_country"]
-    all_significant = (n_below_001 == 21)
+    all_significant = (n_below_005 == 21) and (n_below_001 >= 19)
     lines.append(f"  All 21 r > 0:               {all_positive}")
-    lines.append(f"  Count with p < .001:        {n_below_001}/21")
-    lines.append(f"  Count with p < .005:        {n_below_005}/21")
+    lines.append(f"  Count with p < .001:        {n_below_001}/21  (expect >= 19)")
+    lines.append(f"  Count with p < .005:        {n_below_005}/21  (expect 21)")
     lines.append(f"  Count with p < .05:         {n_below_05}/21")
     lines.append(f"  Max p_pearson observed:     {max_p:.6f} (dropped: {max_p_country})")
     if not (all_positive and all_significant):
         failures.append(
-            f"The published '.md says 'p < .001 in all cases' is a slight "
-            f"overstatement: only {n_below_001}/21 LOO correlations have "
-            f"p < .001 (max p = {max_p:.6f} when dropping {max_p_country}). "
-            f"The looser claim 'all 21 positive and p < .005' DOES hold "
-            f"({n_below_005}/21). This is a real finding — the .md table "
-            f"should be corrected, or v2's manuscript should cite the looser "
-            f"threshold."
+            f"LOO significance has moved away from the corrected published claim "
+            f"in validation/aioe_leave_one_out.md ('p < .005 in all cases; 19 of "
+            f"21 with p < .001'). Observed: all positive = {all_positive}; "
+            f"{n_below_005}/21 at p < .005 (expected 21); {n_below_001}/21 at "
+            f"p < .001 (expected at least 19); max p = {max_p:.6f} when dropping "
+            f"{max_p_country}. Either pca_aioe_validation.csv has drifted "
+            f"(re-run 03b_validate_aioe.py) or the .md needs updating again."
         )
 
     lines.append("")
@@ -354,14 +363,16 @@ def print_console_summary(
     n_below_005 = int((loo["r_pearson_p"] < 0.005).sum())
     max_p = float(loo["r_pearson_p"].max())
     max_p_country = loo.loc[loo["r_pearson_p"].idxmax(), "dropped_country"]
-    all_significant = (n_below_001 == 21)
+    # Mirrors the corrected thresholds asserted in build_verification_log().
+    all_significant = (n_below_005 == 21) and (n_below_001 >= 19)
     overall_claim = "PASS" if (all_positive and all_significant) else "FAIL"
     print("=" * 70)
-    print(f"  [{overall_claim}] All 21 LOO correlations positive and p < .001 "
-          f"(published claim)")
+    print(f"  [{overall_claim}] All 21 LOO correlations positive, p < .005 in all "
+          f"cases,")
+    print(f"         >= 19/21 at p < .001 (corrected published claim)")
     print(f"        All 21 positive: {all_positive}")
-    print(f"        Count p < .001:  {n_below_001}/21")
-    print(f"        Count p < .005:  {n_below_005}/21")
+    print(f"        Count p < .001:  {n_below_001}/21  (expect >= 19)")
+    print(f"        Count p < .005:  {n_below_005}/21  (expect 21)")
     print(f"        Max p observed:  {max_p:.6f} (dropped: {max_p_country})")
     print("=" * 70)
 

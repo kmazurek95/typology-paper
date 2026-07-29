@@ -28,7 +28,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import pandas as pd
 import numpy as np
-from utils import RAW_DIR, PROCESSED_DIR, ISO2_TO_ISO3, ISO3_TO_NAME
+from utils import (RAW_DIR, PROCESSED_DIR, ISO2_TO_ISO3, ISO3_TO_NAME,
+                   columns_lost_by_overwrite, warn_columns_lost)
 
 # ── 1. Load V4 file (has both EPRC and EPT) ─────────────────────────────────
 v4 = pd.read_csv(RAW_DIR / "oecd_epl_v4.csv")
@@ -126,5 +127,10 @@ print(f"Southern mean gap:  {southern['dualization_gap'].mean():.3f}")
 print(f"Germany gap:        {deu['dualization_gap'].values[0]:.3f}")
 
 # ── 9. Save ─────────────────────────────────────────────────────────────────
-out.to_csv(PROCESSED_DIR / "epl_gap.csv", index=False)
-print(f"\nSaved to {PROCESSED_DIR / 'epl_gap.csv'}")
+# Check BEFORE overwriting: 01b/01c may have added weighted-gap columns that the
+# v2 chain reads, and this rebuild would silently strip them (see utils).
+_epl_path = PROCESSED_DIR / "epl_gap.csv"
+_lost = columns_lost_by_overwrite(_epl_path, out.columns)
+out.to_csv(_epl_path, index=False)
+print(f"\nSaved to {_epl_path}")
+warn_columns_lost(_epl_path, _lost)

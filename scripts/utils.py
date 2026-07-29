@@ -1,5 +1,6 @@
 """Shared utilities for the typology paper data pipeline."""
 
+import csv
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -10,6 +11,73 @@ RAW_DIR = ROOT_DIR / "data" / "raw"
 PROCESSED_DIR = ROOT_DIR / "data" / "processed"
 FIGURES_DIR = ROOT_DIR / "figures"
 OUTPUT_DIR = ROOT_DIR / "output"
+
+
+# ── Cross-pipeline safety: v1 rebuilds vs the v2 in-place mutators ───────────
+# `01b_compute_weighted_gap.py` and `01c_unconditional_weighted_gap.py` (both in
+# v2_prep/scripts/) mutate epl_gap.csv and typology_positions.csv IN PLACE after
+# Script 05 has written them: they add the weighted-dualization columns and rename
+# `dualization_gap` -> `dualization_gap_raw`. The v2 chain
+# (v2_prep/scripts/06_merge_country_level.py) reads those added columns.
+#
+# So re-running the v1 pipeline regenerates both files from scratch and silently
+# strips everything 01b/01c added -- which breaks v2 with no error at the time of
+# the loss. Recovery IS possible: 01b asserts the pre-rename `dualization_gap`,
+# which a fresh Script 01 restores, so `01b` then `01c` rebuilds the columns.
+# These helpers make the loss impossible to miss rather than preventing it, since
+# a clean v1-only rebuild is a legitimate thing to want.
+
+V2_RECOVERY_CMD = (
+    "python v2_prep/scripts/01b_compute_weighted_gap.py && "
+    "python v2_prep/scripts/01c_unconditional_weighted_gap.py"
+)
+
+
+def columns_lost_by_overwrite(path, new_columns) -> list[str]:
+    """Columns in the existing CSV at `path` that `new_columns` does not contain.
+
+    Reads only the header row. Returns [] when the file is absent or unreadable,
+    so a first-ever run is never treated as a loss.
+    """
+    p = Path(path)
+    if not p.exists():
+        return []
+    try:
+        with p.open("r", encoding="utf-8", newline="") as fh:
+            existing = next(csv.reader(fh), [])
+    except (OSError, StopIteration, UnicodeDecodeError):
+        return []
+    keep = set(new_columns)
+    return [c for c in existing if c and c not in keep]
+
+
+def warn_columns_lost(path, lost) -> None:
+    """Print a prominent warning naming dropped columns and how to restore them.
+
+    Call this LAST in a script so it is the final thing on screen; a warning
+    buried mid-log is a warning nobody reads.
+    """
+    if not lost:
+        return
+    name = Path(path).name
+    bar = "!" * 78
+    print(f"\n{bar}")
+    # ASCII only: this block is the whole point of the guard, and the Windows
+    # console (cp1252) renders an em dash as a replacement character.
+    print(f"WARNING: {name} was rebuilt from scratch and DROPPED "
+          f"{len(lost)} column(s):")
+    for c in lost:
+        print(f"    - {c}")
+    print("")
+    print("These are added by the v2 in-place mutators and are read by the v2 chain")
+    print("(v2_prep/scripts/06_merge_country_level.py). v2 will NOT run correctly")
+    print("against this file until they are restored. To restore, run in this order:")
+    print("")
+    print(f"    {V2_RECOVERY_CMD}")
+    print("")
+    print("Ignore this only if you are rebuilding v1 in isolation and do not intend")
+    print("to run the v2 chain against these outputs.")
+    print(f"{bar}")
 
 # Ensure output directories exist
 PROCESSED_DIR.mkdir(parents=True, exist_ok=True)

@@ -16,7 +16,13 @@ data/OECD_RTM_*.zip
 # Build and working directories
 paper/
 output/
-validation/
+# validation/ is a working directory, but scripts/03c_loo_aioe.py PARSES
+# aioe_leave_one_out.md as its published reference table — with the whole
+# directory ignored, 03c could not run at all on a clean clone. Ignore the
+# contents, then re-include that one file. (Use validation/* rather than
+# validation/ so git still descends into the directory and sees the negation.)
+validation/*
+!validation/aioe_leave_one_out.md
 # v2_prep: ignore the whole tree, then re-include code + specific outputs only
 # (docs/ intentionally NOT re-included — kept out of the public repo)
 v2_prep/*

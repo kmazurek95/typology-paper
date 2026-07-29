@@ -22,7 +22,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import pandas as pd
 import numpy as np
 
-from utils import PROCESSED_DIR, CLUSTER_LABELS, CLUSTER_SHORT
+from utils import (PROCESSED_DIR, CLUSTER_LABELS, CLUSTER_SHORT,
+                   columns_lost_by_overwrite, warn_columns_lost)
 
 # ── 1. Load both axes ───────────────────────────────────────────────────────
 epl = pd.read_csv(PROCESSED_DIR / "epl_gap.csv")
@@ -110,5 +111,10 @@ out_cols = [
     "task_profile_pc1", "eprc", "ept", "year", "temp_share",
     "cycle", "cycle1_flag",
 ]
-merged[out_cols].to_csv(PROCESSED_DIR / "typology_positions.csv", index=False)
-print(f"\nSaved to {PROCESSED_DIR / 'typology_positions.csv'}")
+# Check BEFORE overwriting: 01b/01c may have added weighted-gap columns that the
+# v2 chain reads, and this rebuild would silently strip them (see utils).
+_typ_path = PROCESSED_DIR / "typology_positions.csv"
+_lost = columns_lost_by_overwrite(_typ_path, out_cols)
+merged[out_cols].to_csv(_typ_path, index=False)
+print(f"\nSaved to {_typ_path}")
+warn_columns_lost(_typ_path, _lost)
