@@ -1,0 +1,26 @@
+# Exact environment of typology-paper/.venv, rebuilt 2026-09-30 on python.org CPython 3.12.10 (py -3.12).
+# Pins recovered from the previous uv-built venv's *.dist-info folders; verified by pip freeze and a RECORD-hash check.
+# Install: py -3.12 -m venv .venv && .venv\Scripts\python -m pip install -r requirements-lock.txt
+# NOTE: pyreadstat and pyarrow (requirements.txt, v2 chain only) were NOT in the old venv, so they are not pinned here.
+adjustText==1.3.0
+contourpy==1.3.3
+cycler==0.12.1
+et_xmlfile==2.0.0
+fonttools==4.63.0
+joblib==1.5.3
+kiwisolver==1.5.0
+matplotlib==3.10.9
+narwhals==2.22.1
+numpy==2.4.6
+openpyxl==3.1.5
+packaging==26.2
+pandas==3.0.3
+pillow==12.2.0
+pyparsing==3.3.2
+python-dateutil==2.9.0.post0
+scikit-learn==1.9.0
+scipy==1.17.1
+six==1.17.0
+threadpoolctl==3.6.0
+tzdata==2026.2
+xlrd==2.0.2
